@@ -1,4 +1,6 @@
-const { MongoClient, ServerApiVersion } = require('mongodb');
+// const { MongoClient, ServerApiVersion } = require('mongodb');
+
+import { MongoClient, ServerApiVersion } from 'mongodb';
 
 const uri = "mongodb+srv://tienhtvn:Tien2000@cluster0.tcyamxl.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 let collection;
@@ -26,4 +28,7 @@ function getCollection() {
     }
     return collection;
 }
-module.exports = { runDBConnection, getCollection };
+module.export = {
+    runDBConnection,
+    getCollection,
+};

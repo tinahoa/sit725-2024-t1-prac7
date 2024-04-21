@@ -1,4 +1,5 @@
-const { getCards, submitForm } = require('./../models/cat');
+// const { getCards, submitForm } = require('./../models/cat');
+import { getCards, submitForm } from './../models/cat';
 
 async function getCardsController(req, res) {
     try {
@@ -20,4 +21,4 @@ async function submitFormController(req, res) {
     }
 }
 
-module.exports = { getCardsController, submitFormController };
+module.exports = {getCardsController, submitFormController};
