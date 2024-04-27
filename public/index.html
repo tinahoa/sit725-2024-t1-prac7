@@ -86,10 +86,18 @@
 
     <!-- Import Materialize JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-    <script src="js/script.js"></script>
-    <!-- Import jQuery JavaScript -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="script.js"></script>
+
+    <!-- Import jQuery JavaScript -->
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script src="./js/script.js"></script>
+    <script>
+        const socket = io();
+        // Event listener for 'number' event
+        socket.on('number', (msg) => {
+            console.log('Random number: ' + msg);
+        });
+    </script>
 </body>
 
 </html>

@@ -1,5 +1,5 @@
-// const { getCards, submitForm } = require('./../models/cat');
-import { getCards, submitForm } from './../models/cat';
+const { getCards, submitForm } = require('./../models/cat');
+// import { getCards, submitForm } from './../models/cat';
 
 async function getCardsController(req, res) {
     try {

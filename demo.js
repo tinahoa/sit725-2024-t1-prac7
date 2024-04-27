@@ -1,15 +1,10 @@
-// let express = require("express");
-import express from "express"; 
-let app = express();
-import http from 'http';
+let express = require('express');
+let app = express ();
+let http = require('http').createServer(app);
 
-const server = http.createServer(app); 
+let io = require('socket.io')(http);
 
-import { Server } from 'socket.io'; 
-
-const io = new Server(http); 
-
-var port = process.env.PORT || 8080; app.use(express.json());
+var port = process.env.PORT || 3000; app.use(express.json());
 
 app.get("/test", function (request, response) {
     var user_name = request.query.user_name;
@@ -24,40 +19,30 @@ app.get('/addTwoNumbers/:firstNumber/:secondNumber', function(req,res,next){ var
     else { res.json({result: result, statusCode: 200}).status(200) } 
 
 });
+const dbConnection = require('./dbConnection');
+const router = require('./routers/router');
 
 
+app.use(express.static(__dirname + '/public/'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
-import { MongoClient, ServerApiVersion } from 'mongodb';
-
-
-
-const router = express.Router();
-import {router} from './routers/router';
-import {runDBConnection, getCollection} from './controllers/controller';
-
-runDBConnection().then(() => {
-
+dbConnection.runDBConnection().then(() => {
     app.use(router);
-
-    let PORT = process.env.PORT || 3000;
-    app.listen(PORT, () => {
-        console.log("Listening on " + PORT);
-    });
-
-
-//socket test
-    io.on('connection', (socket) => { console.log('a user connected'); socket.on('disconnect', () => {
-        console.log('user disconnected'); });
+    http.listen(3000,()=>{
+        console.log('Listening on port 3000');
+    
+    })
+    io.on('connection', (socket)=>{
+        console.log('A user connected');
+        socket.on('disconnect', ()=>{
+            console.log('A user disconnected');
+        });
         setInterval(()=>{
-        socket.emit('number', parseInt(Math.random()*10));
-        }, 1000); });
-    server.listen(port,()=>{
-
-    console.log("Listening on port ", port); 
-
+            socket.emit('number', parseInt(Math.random()*10));
+        }, 1000); 
     });
 
 }).catch(error => {
     console.error("Error starting the server:", error);
 });
-

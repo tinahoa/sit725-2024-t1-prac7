@@ -1,6 +1,6 @@
-// const { getCollection } = require('../dbConnection');
+const { getCollection } = require('../dbConnection');
 
-import { getCollection } from '../dbConnection';
+// import { getCollection } from '../dbConnection';
 
 async function getCards() {
     try {
